@@ -1,0 +1,137 @@
+server_id = "mcp_loyalty"
+display_name = "Loyalty"
+version = "1.0.0"
+domain = "operations"
+sdk_version = "0.1.0"
+risk_level = "medium"
+writes_allowed = "gated"
+transports = ["stdio"]
+credentials = []
+governance_gates = []
+environments = ["development", "staging", "production"]
+
+[[tools]]
+name = "enroll_member"
+description = "Enroll a new loyalty member"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_member"
+description = "Get a member's account, tier, and balances"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "find_member"
+description = "Find members by membership number or name"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "set_member_status"
+description = "Change a member's account status"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "get_balance"
+description = "Get points balance and tier progress"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "earn_points"
+description = "Earn points from spend (tier + offer multipliers applied)"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "award_points"
+description = "Award points directly (bonus/goodwill)"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "adjust_points"
+description = "Manually adjust points up or down"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "expire_points"
+description = "Expire points from a member's balance"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "get_ledger"
+description = "Get a member's points-ledger history"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_reward"
+description = "Create a catalog reward"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_rewards"
+description = "List active rewards (optionally tier-filtered for a member)"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "redeem_reward"
+description = "Redeem a reward for a member (debits points via the ledger)"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "set_redemption_status"
+description = "Fulfill or cancel a redemption (cancel refunds points)"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "get_redemptions"
+description = "List a member's redemptions"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_offer"
+description = "Create a promotional bonus-points offer"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_offers"
+description = "List offers"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "set_offer_active"
+description = "Activate or deactivate an offer"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []

@@ -1,0 +1,27 @@
+[package]
+name = "mcp-loyalty"
+version = "1.0.0"
+edition = "2024"
+authors = ["James Karanja <james.karanja@zavora.ai>"]
+description = "Loyalty MCP Server — members, points-ledger (earn/redeem/adjust/expire), tiers, rewards catalog, redemptions, and promotional offers for loyalty-program agents"
+license = "Apache-2.0"
+repository = "https://github.com/zavora-ai/mcp-loyalty"
+homepage = "https://enterprise.adk-rust.com"
+keywords = ["mcp", "loyalty", "rewards", "points", "membership"]
+categories = ["development-tools"]
+readme = "README.md"
+
+[dependencies]
+adk-mcp-sdk = "0.1"
+rmcp = { version = "1.7", features = ["server", "transport-io", "macros"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+async-trait = "0.1"
+
+[workspace]
