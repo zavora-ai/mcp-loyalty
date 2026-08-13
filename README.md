@@ -115,7 +115,7 @@ cargo build --release
 ```toml
 server_id = "mcp_loyalty"
 display_name = "Loyalty"
-version = "1.0.0"
+version = "1.1.0"
 domain = "operations"
 risk_level = "medium"
 writes_allowed = "gated"
