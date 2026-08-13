@@ -71,7 +71,7 @@ pub struct SetOfferActiveInput { pub id: String, pub active: bool }
 #[derive(Clone)]
 pub struct LoyaltyServer { pub store: Arc<LoyaltyStore> }
 
-#[tool_router(server_handler)]
+#[tool_router]
 impl LoyaltyServer {
     // ── members ───────────────────────────────────────────────────────────
 
@@ -222,4 +222,11 @@ impl HealthCheck for LoyaltyServer {
     async fn check_health(&self) -> HealthStatus {
         HealthStatus { healthy: true, message: Some("operational".into()), latency_ms: Some(1) }
     }
+}
+
+adk_mcp_sdk::mcp_2026_server! {
+    server: LoyaltyServer,
+    task_tools: [],
+    approval_tools: ["set_member_status", "earn_points", "award_points", "adjust_points", "expire_points", "redeem_reward", "set_redemption_status", "set_offer_active"],
+    cache_ttl_ms: 60_000,
 }
