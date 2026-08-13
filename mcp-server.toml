@@ -1,137 +1,137 @@
 server_id = "mcp_loyalty"
 display_name = "Loyalty"
-version = "1.0.0"
+version = "1.1.0"
 domain = "operations"
-sdk_version = "0.1.0"
+sdk_version = "0.2.0"
 risk_level = "medium"
 writes_allowed = "gated"
 transports = ["stdio"]
 credentials = []
-governance_gates = []
+governance_gates = ["mrtr_approval"]
 environments = ["development", "staging", "production"]
 
 [[tools]]
 name = "enroll_member"
-description = "Enroll a new loyalty member"
+description = "Enroll a new loyalty member. Returns the member id and membership number."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_member"
-description = "Get a member's account, tier, and balances"
+description = "Get a member's account: tier, points balance, lifetime points, status."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "find_member"
-description = "Find members by membership number or name"
+description = "Find members by membership number (exact) or name (contains)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "set_member_status"
-description = "Change a member's account status"
+description = "Change a member's account status (active/inactive/suspended/closed). Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "get_balance"
-description = "Get points balance and tier progress"
+description = "Get a member's points balance and tier progress (points to next tier)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "earn_points"
-description = "Earn points from spend (tier + offer multipliers applied)"
+description = "Earn points from a spend amount. Applies the member's tier multiplier and any active offer bonus, then posts to the ledger. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "award_points"
-description = "Award points directly (bonus/goodwill)"
+description = "Award points directly (signup bonus, goodwill). Positive amount. Counts toward lifetime/tier. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "adjust_points"
-description = "Manually adjust points up or down"
+description = "Manually adjust points up or down (non-zero). Negative adjustments cannot drive the balance below zero. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "expire_points"
-description = "Expire points from a member's balance"
+description = "Expire a positive number of points from a member's balance. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "get_ledger"
-description = "Get a member's points-ledger history"
+description = "Get a member's points-ledger history (most recent first), the auditable source of truth for the balance."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_reward"
-description = "Create a catalog reward"
+description = "Create a catalog reward (points cost, optional min tier and inventory)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_rewards"
-description = "List active rewards (optionally tier-filtered for a member)"
+description = "List active rewards. If member_id is given, only rewards the member's tier qualifies for are returned."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "redeem_reward"
-description = "Redeem a reward for a member (debits points via the ledger)"
+description = "Redeem a reward for a member: validates tier, inventory, and balance; debits points via the ledger; decrements inventory; creates a redemption. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "set_redemption_status"
-description = "Fulfill or cancel a redemption (cancel refunds points)"
+description = "Update a redemption's status (fulfilled or cancelled). Cancelling a pending redemption refunds the points and restores inventory. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "get_redemptions"
-description = "List a member's redemptions"
+description = "List a member's redemptions (most recent first)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_offer"
-description = "Create a promotional bonus-points offer"
+description = "Create a promotional offer (bonus earn multiplier, optional tier targeting)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_offers"
-description = "List offers"
+description = "List offers (set active_only=true for currently active ones)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "set_offer_active"
-description = "Activate or deactivate an offer"
+description = "Activate or deactivate an offer. Gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
